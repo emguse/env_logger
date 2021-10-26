@@ -1,0 +1,6 @@
+*.bak
+*~
+log_d/
+log_h/
+test.ipynb
+*.db
