@@ -6,3 +6,4 @@ press_log/
 test.ipynb
 *.db
 myenv/
+hard_module.pth
