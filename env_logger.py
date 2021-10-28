@@ -9,6 +9,8 @@ import RPi.GPIO as gpio
 import pressure_DPS310 as DPS310
 import acc_ADXL345 as ADXL345
 import multi_timer
+import paho.mqtt.publish as publish
+import json
 
 # press_acc event record constant
 BUTTON_PIN = 5 # slot D5
@@ -25,6 +27,10 @@ RECORD_LENGTH_H = 3600 # [sec](hour)
 RECORD_LENGTH_D = 86400 # [sec](day)
 SAVE_DIR_H = './log_h/'
 SAVE_DIR_D = './log_d/'
+# mqtt constant
+BROKER = 'hanage'
+PORT = 1883
+TOPIC = "rspi/env"
 
 class thp_logger():
     def __init__(self) -> None:
@@ -53,6 +59,9 @@ class thp_logger():
         press = round(press, 4)
         data = [temperature, humidity, press]
         print(data)
+        msg = {'time':datetime.datetime.now(),'tmp':temperature, 'hum':humidity, 'atm':press}
+        payload = json.dumps(msg)
+        publish.single(TOPIC, payload, qos=0, hostname=BROKER, port=PORT)
         self.db.insert_db(temperature, humidity, press)
         self.d_data_h.append(data)
         self.d_data_d.append(data)
