@@ -59,7 +59,7 @@ class thp_logger():
         press = round(press, 4)
         data = [temperature, humidity, press]
         print(data)
-        msg = {'time':srt(datetime.datetime.now()),'tmp':temperature, 'hum':humidity, 'atm':press}
+        msg = {'time':str(datetime.datetime.now()),'tmp':temperature, 'hum':humidity, 'atm':press}
         payload = json.dumps(msg)
         publish.single(TOPIC, payload, qos=0, hostname=BROKER, port=PORT)
         self.db.insert_db(temperature, humidity, press)
