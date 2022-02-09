@@ -6,3 +6,4 @@ press_log/
 test.ipynb
 *.db
 __pycache__/
+grove.py/
