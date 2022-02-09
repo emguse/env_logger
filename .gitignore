@@ -5,3 +5,4 @@ log_h/
 press_log/
 test.ipynb
 *.db
+__pycache__/
